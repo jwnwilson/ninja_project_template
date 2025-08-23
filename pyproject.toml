@@ -1,0 +1,84 @@
+[project]
+authors = [
+    {name = "Noel Wilson", email = "jwnwilson@hotmail.co.uk"},
+]
+requires-python = "<4.0,>=3.12"
+name = "{{project_slug}}_be"
+version = "0.1.0"
+description = "AI pet BE"
+readme = "README.md"
+dependencies = [
+    "django-ninja>=1.4.3",
+    "django-ninja-crud>=0.6.2",
+    "django-ninja-extra>=0.30.1",
+    "django-ninja-jwt>=5.3.7",
+    "ninja-schema>=0.14.3",
+    "uvicorn<1.0.0,>=0.32.0",
+    "gevent<25.0.0,>=24.10.3",
+    "gunicorn>=23.0.0",
+    "celery>=5.4.0",
+    "redis>=5.0.0",
+    "requests<3.0.0,>=2.32.3",
+    "python-dotenv<2.0.0,>=1.0.1",
+    "pydantic-settings<3.0.0,>=2.6.0",
+    "alembic<2.0.0,>=1.13.3",
+    "sqlalchemy-continuum>=1.4.2",
+    "psycopg[binary]==3.2.6",
+    "sentry-sdk[fastapi]>=2.25.1",
+    "hexrepo-cloud",
+    "hexrepo-db",
+    "hexrepo-api",
+    "hexrepo-log",
+]
+
+[dependency-groups]
+aws = [
+    "aws-xray-sdk>=2.14.0",
+    "boto3<2.0.0,>=1.35.66",
+    "boto3-stubs[essential]<2.0.0,>=1.35.86",
+]
+dev = [
+    "pytest-django>=4.11.1",
+    "pytest<9.0.0,>=8.3.3",
+    "mypy<2.0.0,>=1.13.0",
+    "ruff>=0.8.4",
+    "httpx<1.0.0,>=0.27.2",
+    "pytest-alembic>=0.11.1",
+    "pytest-dotenv<1.0.0,>=0.5.2",
+    "pytest-cov<7.0.0,>=6.0.0",
+    "pytest-xdist<4.0.0,>=3.6.1",
+    "polyfactory<3.0.0,>=2.17.0",
+    "pytest-celery>=1.2.1",
+]
+
+[tool.pdm.build]
+includes = []
+[build-system]
+requires = ["pdm-backend"]
+build-backend = "pdm.backend"
+
+[tool.pytest.ini_options]
+addopts = "-vv --cov --cov-report xml --cov-report term-missing --cov-fail-under=50 -n 4"
+testpaths = ["tests", "src"]
+env_files = ["env/local.env"]
+pythonpath = [
+  "src"
+]
+DJANGO_SETTINGS_MODULE = "main.settings"
+
+[tool.coverage.run]
+concurrency = ["thread", "multiprocessing"]
+parallel = true
+omit = ["tests/*"]
+source = ["."]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+
+[tool.uv.sources]
+
+hexrepo-api = { path = "../../libs/api", editable = true }
+hexrepo-db = { path = "../../libs/db", editable = true }
+hexrepo-cloud = { path = "../../libs/cloud", editable = true }
+hexrepo-log = { path = "../../libs/log", editable = true }
