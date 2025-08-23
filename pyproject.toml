@@ -3,7 +3,7 @@ authors = [
     {name = "Noel Wilson", email = "jwnwilson@hotmail.co.uk"},
 ]
 requires-python = "<4.0,>=3.12"
-name = "{{project_slug}}_be"
+name = "{{project_slug}}"
 version = "0.1.0"
 description = "AI pet BE"
 readme = "README.md"

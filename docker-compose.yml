@@ -5,16 +5,16 @@
 #
 services:
   api:
-    container_name: {{project_slug}}_be
+    container_name: {{project_slug}}
     platform: "linux/amd64"
     env_file:
       - env/docker.env
-    image: "{{project_slug}}_be"
+    image: "{{project_slug}}"
     build: 
       context: ../../
       dockerfile: infra/docker/django-ninja.Dockerfile
       args:
-          PROJECT: {{project_slug}}_be
+          PROJECT: {{project_slug}}
     # Run this contain as if it's in the terminal, useful for debugging
     tty: true
     # Mount local files into the container so we can update files inside the container
@@ -29,7 +29,7 @@ services:
       - db
 
   db:
-    container_name: {{project_slug}}_be_db
+    container_name: {{project_slug}}_db
     restart: unless-stopped
     image: postgres:15
     volumes:
@@ -37,7 +37,7 @@ services:
       - ./tools:/code/tools
       - postgres_db:/var/lib/postgresql/data
     environment:
-      - POSTGRES_MULTIPLE_DATABASES={{project_slug}}_be_db,test_db
+      - POSTGRES_MULTIPLE_DATABASES={{project_slug}}_db,test_db
       - POSTGRES_USER=postgres
       - POSTGRES_PASSWORD=password
     env_file:
@@ -48,7 +48,7 @@ services:
       - "5432"
 
   redis:
-    container_name: {{project_slug}}_be_redis
+    container_name: {{project_slug}}_redis
     restart: unless-stopped
     image: redis:7-alpine
     ports:
@@ -59,16 +59,16 @@ services:
       - redis_data:/data
 
   celery:
-    container_name: {{project_slug}}_be_celery
+    container_name: {{project_slug}}_celery
     platform: "linux/amd64"
     env_file:
       - env/docker.env
-    image: "{{project_slug}}_be"
+    image: "{{project_slug}}"
     build: 
       context: ../../
       dockerfile: infra/docker/django-ninja.Dockerfile
       args:
-          PROJECT: {{project_slug}}_be
+          PROJECT: {{project_slug}}
     volumes:
       - ../../libs:/libs
       - ./src:/code/src
@@ -78,16 +78,16 @@ services:
       - db
 
   celery-beat:
-    container_name: {{project_slug}}_be_celery_beat
+    container_name: {{project_slug}}_celeryat
     platform: "linux/amd64"
     env_file:
       - env/docker.env
-    image: "{{project_slug}}_be"
+    image: "{{project_slug}}"
     build: 
       context: ../../
       dockerfile: infra/docker/django-ninja.Dockerfile
       args:
-          PROJECT: {{project_slug}}_be
+          PROJECT: {{project_slug}}
     volumes:
       - ../../libs:/libs
       - ./src:/code/src

@@ -4,7 +4,7 @@
 
 TF_VAR_docker_tag := latest
 TF_VAR_environment=${ENVIRONMENT}
-TF_VAR_ecr_api_url=${AWS_ACCOUNT}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/{{project_slug}}_be_api
+TF_VAR_ecr_api_url=${AWS_ACCOUNT}.dkr.ecr.${AWS_DEFAULT_REGION}.amazonaws.com/{{project_slug}}_api
 TF_VAR_aws_access_key=${AWS_ACCESS_KEY_ID}
 TF_VAR_aws_secret_key=${AWS_SECRET_ACCESS_KEY}
 TF_VAR_aws_region=${AWS_DEFAULT_REGION}
@@ -136,7 +136,7 @@ tf_output: tf_workspace
 	@cd infra/tf/aws/environment && terraform output -json
 
 deploy: build tf_workspace
-	PROJECT={{project_slug}}_be NO_INPUT=$(NO_INPUT) ENVIRONMENT=$(ENVIRONMENT) ../../tools/bash_scripts/deploy.sh 
+	PROJECT={{project_slug}} NO_INPUT=$(NO_INPUT) ENVIRONMENT=$(ENVIRONMENT) ../../tools/bash_scripts/deploy.sh 
 
 bastion: venv
 	@echo "Activating bastion port forwarding..."
