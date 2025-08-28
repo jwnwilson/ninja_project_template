@@ -18,7 +18,7 @@ variable "aws_secret_key" {
 }
 
 variable "project" {
-  default = "{{project_slug}}_be"
+  default = "{{project_slug}}"
 }
 
 variable "docker_tag" {
@@ -27,5 +27,5 @@ variable "docker_tag" {
 
 variable "api_repo" {
   description = "Name of container image repository"
-  default     = "{{project_slug}}_be_api"
+  default     = "{{project_slug}}_api"
 }
