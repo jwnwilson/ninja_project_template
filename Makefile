@@ -18,8 +18,11 @@ DJANGO_MANAGE_PY = PYTHONPATH=src uv run manage.py
 venv:
 	@../../tools/bash_scripts/setup_env.sh
 
-build:
+build: collectstatic venv
 	docker compose build
+
+collectstatic:
+	$(DJANGO_MANAGE_PY) collectstatic --noinput
 
 # DB management
 
