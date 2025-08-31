@@ -20,7 +20,7 @@ services:
     # Mount local files into the container so we can update files inside the container
     volumes:
       - ../../libs:/libs
-      - ./src:/code/src
+      - ./src:/code/project/src
     expose:
       - "8000"
     ports:
